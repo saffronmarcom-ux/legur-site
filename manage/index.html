@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>LEGUR Manage</title>
+  <style>
+    html,body{margin:0;min-height:100%;background:#f4f0e7;font-family:Arial,sans-serif}
+    .loading{min-height:100vh;display:grid;place-items:center;color:#171b22;font-weight:700}
+  </style>
+</head>
+<body>
+  <div class="loading">LEGUR Admin yüklənir…</div>
+  <script>
+  (async function(){
+    try{
+      const res = await fetch('/index.html', {cache:'no-store'});
+      if(!res.ok) throw new Error('index.html ' + res.status);
+      let html = await res.text();
+      html = html.replace('<body data-manage="0">','<body data-manage="1">');
+      document.open();
+      document.write(html);
+      document.close();
+    }catch(err){
+      console.error(err);
+      document.body.innerHTML='<div class="loading">Admin səhifəsi yüklənmədi.</div>';
+    }
+  })();
+  </script>
+</body>
+</html>
